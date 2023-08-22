@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko" class=" ext-strict"><head>
+		<title>전자공시시스템 | 기업개황 </title>
+		<meta charset="UTF-8">
+		<meta id="Viewport" name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+
+<script type="text/javascript" src="/resource/js/jquery-3.3.1.min.js"></script>
+
+<link rel="stylesheet" href="/js/jquery-ui/jquery-ui.min.css">
+<script type="text/javascript" src="/js/jquery-ui/jquery-ui.min.js"></script>
+
+<!-- 2011.11.01 ext 2.3 -->
+<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/js/ext-main/resources/css/ext-all-ie8.css" /><![endif]-->
+<script type="text/javascript" src="/js/ext-main/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="/js/ext-main/ext-all.js"></script>
+
+<!-- x-xeries js libraries  -->
+<script type="text/javascript" src="/js/xjs.js?ver=1.18"></script>
+
+<!-- application js libraries -->
+<script type="text/javascript" src="/js/jsval.js"></script>
+
+<!-- 웹표준 추가 스크립트-->
+<script type="text/javascript" src="/js/jquery/gotop.js"></script>
+
+<!-- 웹표준화적용사항 위반으로 DSAB001L.jsp에서 헤드로 위치 이동 -->
+<style type="text/css">
+.checked-icon {background-image: url(/images/temp/add.gif);}
+.ui-autocomplete {max-height: 100px; overflow-y: auto; overflow-x: hidden;}
+.ui-menu-item .ui-menu-item-wrapper.ui-state-active {background: #eaeaea !important; border: none; color:#333;}
+</style>
+<!--end -->
+
+<!-- 추가 되는 js, css 시작 -->
+<link rel="stylesheet" href="/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resource/css/slick.css">
+<link rel="stylesheet" href="/js/jsTree/default/style.css">
+<link rel="stylesheet" href="/resource/css/bootstrap-datepicker3.css">
+<script type="text/javascript" src="/resource/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/resource/js/slick.min.js"></script>
+<script type="text/javascript" src="/js/jsTree/jstree.js"></script>
+<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/js/bootstrap-datepicker.kr.min.js"></script>
+<script type="text/javascript" src="/js/idart/idart.js"></script><!-- idart용 -->
+<!-- 추가 되는 js, css 끝 -->
+
+<script type="text/javascript">
+function loadHistoryContents() {
+	xajax.initParameter();
+	xajax.blockUI = false;
+	xajax.simpleSend("/dsaf001/history.ax", function(html) {
+		$j("#wingWrap").html(html);
+	});
+}
+
+</script>
+<script type="text/javascript">
+(
+	function(){
+		var s=function(){
+				__flash__removeCallback=function(i,n){if(i)i[n]=null;
+			};window.setTimeout(s,10);
+		};s();
+	}
+)();
+</script>
+
+<script type="text/javascript">
+function otherGongsi(){
+	var f_select = document.getElementById("f_select");
+	var link = f_select.options[f_select.selectedIndex].value;
+	if(link != "f_slt_1"){
+		window.open(link);
+	}
+	if(link == "f_slt_1"){
+		alert("해외전자공시를 선택해주세요");
+	}
+}
+</script>
+
+
+
+<link id="commonCss" rel="stylesheet" href="/css/common.css?ver=1.30">
+<link id="userCssWeb" rel="stylesheet" href="/css/web.css?ver=1.172">
+<link id="userCssTab" rel="stylesheet" href="/css/tablet.css?ver=1.93">
+<link id="userCssMob" rel="stylesheet" href="/css/mobile.css?ver=1.168">
+
+<script type="text/javascript" src="/js/common.js?ver=1.138"></script>
+		<script type="text/javascript">
+		//localStorage
+		/* 향후 다크모드 적용발전을 위한 테스트
+		darkModeToggle('init');
+		function darkModeToggle(type){
+			var mode = localStorage.getItem('dartMode');
+
+			if(!(type && type == 'init')){
+				if(mode && mode == 'on'){
+					//현재 dark 모드
+					localStorage.setItem('dartMode','off');
+				}else{
+					//현재 dark 모드
+					localStorage.setItem('dartMode','on');
+				}
+
+				mode = localStorage.getItem('dartMode');
+			}
+
+			if(mode && mode == 'on'){
+				$j('html').addClass('theme-dark');
+			}else{
+				$j('html').removeClass('theme-dark');
+			}
+		}
+		*/
+
+		var word = fn_getLocalStorage('defaultSearchWord');
+		var val  = fn_getLocalStorage('defaultSearchValue');
+
+		$j(document).ready(function() {
+
+			if(word && val){
+				var optionVal = val.replace(/\"/gi,'');
+
+				if(optionVal=="corp"){
+					getRef("headOption").innerHTML = "<option value='''>전체</option><option value='corp' selected>회사명</option><option value='report'>보고서명</option><option value='reportList'>보고서 목차명</option><option value='contents'>본문내용</option><option value='high'>고급검색</option>";
+				}else if(optionVal=="report"){
+					getRef("headOption").innerHTML = "<option value='''>전체</option><option value='corp'>회사명</option><option value='report' selected>보고서명</option><option value='reportList'>보고서 목차명</option><option value='contents'>본문내용</option><option value='high'>고급검색</option>";
+				}else if(optionVal=="reportList"){
+					getRef("headOption").innerHTML = "<option value='''>전체</option><option value='corp'>회사명</option><option value='report'>보고서명</option><option value='reportList' selected>보고서 목차명</option><option value='contents'>본문내용</option><option value='high'>고급검색</option>";
+				}else if(optionVal=="contents"){
+					getRef("headOption").innerHTML = "<option value='''>전체</option><option value='corp'>회사명</option><option value='report'>보고서명</option><option value='reportList'>보고서 목차명</option><option value='contents' selected>본문내용</option><option value='high'>고급검색</option>";
+				}else if(optionVal=="contents"){
+					getRef("headOption").innerHTML = "<option value='''>전체</option><option value='corp'>회사명</option><option value='report'>보고서명</option><option value='reportList'>보고서 목차명</option><option value='contents'>본문내용</option><option value='high' selected>고급검색</option>";
+				}else{
+					getRef("headOption").innerHTML = "<option value=''' selected>전체</option><option value='corp'>회사명</option><option value='report'>보고서명</option><option value='reportList'>보고서 목차명</option><option value='contents'>본문내용</option><option value='high'>고급검색</option>";
+				}
+
+			}else{
+				getRef("headOption").innerHTML = "<option value='''>전체</option><option value='corp' selected>회사명</option><option value='report'>보고서명</option><option value='reportList'>보고서 목차명</option><option value='contents'>본문내용</option><option value='high'>고급검색</option>";
+			}
+
+			fn_headOptionChange();
+			fn_scrollWingWrapSub();
+		});
+		/* wingWrap */
+		function fn_scrollWingWrapSub(){
+			$j(window).scroll(function(){
+				var scrollTop = $j(document).scrollTop()+266;
+				if(scrollTop < 266){
+					scrollTop = 266;
+				}
+				$j('#wingWrap').stop();
+				$j('#wingWrap').animate({'top':scrollTop});
+			});
+		}
+	</script>
+	</head>
+	<body class="  ext-chrome">
+
+	<!-- 본문 바로가기 -->
+		<!-- skipMenu -->
+		<div class="loadingMask" id="loadingMask" style="display:none"></div>
+		<div class="loadingWrap" id="loadingWrap" style="display:none">
+			<div class="loadingImg"></div>
+			<div class="loadingMessage">잠시만 기다려주세요.</div>
+		</div>
+		<div class="skipMenu"><a href="#contents" title="본문 바로가기">본문 바로가기</a></div>
+
+		<div class="wrapper subPageBg">
+
+
+<script type="text/javascript">
+function openReportViewerEng(rcpNo, dcmNo){
+	var url = "/dsbh001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+
+	var size = getOpenSize(1024, 768);
+	window.open(url, rcpNo, size+",resizable=yes");
+	$j("#r_"+rcpNo).css("color","#cd0093");
+}
+
+var win_num = 1;
+function openReportViewer(rcpNo, dcmNo){
+	var url = "/dsaf001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+
+	var size = getOpenSize(1200, 810);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+	if (dcmNo) {
+		$j("#r_"+rcpNo+dcmNo).css("color","#cd0093");
+	}else{
+		$j("#r_"+rcpNo).css("color","#cd0093");
+	}
+}
+
+function openReportViewerParam(rcpNo, dcmNo, params){
+	var url = "/dsaf001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+	if (params) {
+		//<![CDATA[
+		url += params;
+		//]]>
+	}
+
+	var size = getOpenSize(1200, 810);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+	if (dcmNo) {
+		$j("#r_"+rcpNo+dcmNo).css("color","#cd0093");
+	}else{
+		$j("#r_"+rcpNo).css("color","#cd0093");
+	}
+}
+
+function openReportListViewer(rcpNo, dcmNo, eleId){
+
+	var url = "/dsaf001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+		if(eleId) {
+			url += "&eleId=" + eleId;
+		}
+	}
+
+	var size = getOpenSize(1200, 810);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+	if (dcmNo) {
+		$j("#r_"+rcpNo+dcmNo).css("color","#cd0093");
+	}else{
+		$j("#r_"+rcpNo).css("color","#cd0093");
+	}
+}
+
+/*
+ * 통합검색용 문서뷰어 팝업 호출
+ * nrseo 2010. 10. 20
+ * 2016.09.30 jsp에 직접 명시 하여 미사용(DSAB007A.jsp)
+ * - a:visited 미작동으로 인한 조치
+ */
+function openReportViewerKeyword(rcpNo, dcmNo, keyword){
+	var url = "/dsaf001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+	//<![CDATA[
+	url += "&keyword=" + encodeURIComponent(keyword);
+	//]]>
+
+	var size = getOpenSize(1024, 768);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+	if (dcmNo) {
+		$j("#r_"+rcpNo+dcmNo).css("color","#cd0093");
+	}else{
+		$j("#r_"+rcpNo).css("color","#cd0093");
+	}
+}
+
+/*
+ * 메인화면 전용
+ */
+function openReportViewerMain(rcpNo, dcmNo){
+	var url = "/dsaf001/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+
+	var size = getOpenSize(1200, 810);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+}
+
+function openXbrlViewer(rcpNo, dcmNo){
+	var url = "/dsbh002/main.do?rcpNo=" + rcpNo;
+	if (dcmNo) {
+		//<![CDATA[
+		url += "&dcmNo=" + dcmNo;
+		//]]>
+	}
+
+	var size = getOpenSize(1024, 768);
+	window.open(url, rcpNo+win_num, size+",resizable=yes");
+	win_num++;
+	/* j("#r_"+rcpNo)가
+	   ie8,9,11에서 클릭시 css변경 미처리로 위치 변경
+	   ie10 버전에서 미작동으로 본문에 직접 반영(DSBD001A.jsp, DSBD002A.jsp)	 */
+	//$j("#r_"+rcpNo).css("color","#cd0093");
+}
+
+function openHelp(menu) {
+	var url = "/guide/main.jsp";
+	if (menu) {
+		url += "?menu=" + menu;
+	}
+	var size = getOpenSize(1100, 761);
+	var win = window.open(url, "DartGuide", size + ",resizable=yes,scrollbars=no");
+	if (win == null) {
+		alert("팝업차단을 해제하시기 바랍니다.");
+	} else {
+		win.focus();
+	}
+}
+
+</script>
+<form name="reportForm" method="post" action="/dsaf001/main.do">
+	<input type="hidden" name="rcpNo">
+	<input type="hidden" name="dcmNo">
+	<input type="hidden" name="keyword">
+	<input type="submit" style="display:none;">
+</form>
+
+			<!-- TOP LAYOUT START -->
+			<div class="headerWrap">
+				<div class="header">
+
+
+
+<!--  jsp:include flush="true"	page="/WEB-INF/jsp/include/includeTopLink.jsp" />-->
+<button class="btnMenu" title="메뉴 열기 버튼"></button>
+<div class="headerTop">
+	<h1 class="logo" title="DART시스템 "><a href="/main.do" title="홈으로 가기">홈으로 가기</a></h1>
+</div>
+<div class="headerBottom">
+	<div class="utilMenu">
+		<form name="headSearchForm" id="headSearchForm" method="post" onsubmit="return false">
+			<input type="hidden" name="autoSearch" value="Y">
+			<input type="hidden" name="selDate" id="headSelDate" value="4">
+			<input type="hidden" name="startDate" id="headStartDate" value="">
+			<input type="hidden" name="endDate" id="headEndDate" value="">
+			<input type="hidden" name="lateKeyword" id="headLateKeyword" value="0">
+
+			<div class="topSearchWrap dpfl">
+				<span class="frmSelect mgR5">
+					<label for="headOption">선택</label>
+					<select id="headOption" name="option" title="목록선택" onchange="fn_headOptionChange();"><option value="" '="">전체</option><option value="corp" selected="">회사명</option><option value="report">보고서명</option><option value="reportList">보고서 목차명</option><option value="contents">본문내용</option><option value="high">고급검색</option></select>
+				</span>
+				<span class="topSearch dpfl">
+					<input type="text" name="keyword" id="headKeyword" title="검색어 입력" class="dpno" placeholder="검색어 입력" onkeypress="if(event.keyCode==13){headSearch(1); return false;}" style="display: none;"><label for="headKeyword">선택</label>
+					<input type="text" name="textCrpNm" id="headTextCrpNm" title="회사명/종목코드 입력" class="dpno" placeholder="회사명/종목코드 입력" onkeypress="if(event.keyCode==13){headSearch(1); return false;}" style="display: inline-block;"><label for="headTextCrpNm">선택</label>
+					<input type="text" name="reportName" id="headReportName" title="보고서명 입력" class="dpno" placeholder="보고서명 입력" onkeypress="if(event.keyCode==13){headSearch(1); return false;}" style="display:none"><label for="headReportName">선택</label>
+					<input type="text" name="tocSrch" id="headTocSrch" title="보고서목차명 입력" class="dpno" placeholder="보고서목차명 입력" onkeypress="if(event.keyCode==13){headSearch(1); return false;}" style="display:none"><label for="headTocSrch">선택</label>
+					<input type="text" name="searchWord" id="headSearchWord" class="w01" title="회사명 보고서명 입력" placeholder="회사명 보고서명 입력" onkeypress="if(event.keyCode==13){headSearch(1); return false;}" style="display:none"><label for="headSearchWord">선택</label>
+					<input type="text" name="contentWord" id="headContentWord" title="본문내용 입력" placeholder="본문내용 입력" onkeypress="if(event.keyCode==13){headSearch(1); return false;}" style="display:none"><label for="headContentWord">선택</label>
+					<button onclick="headSearch()">검색</button>
+				</span>
+			</div>
+			<div class="languageChoice">
+			<ul>
+				<li><a href="https://englishdart.fss.or.kr" target="_blank" title="ENGLISH">ENGLISH</a></li>
+			</ul>
+		</div>
+		</form>
+	</div>
+
+	<div class="gnb">
+		<ul>
+			<li id="menu_1">
+				<a data-click="/dsac001/mainY.do" href="javascript:void(0);" title="최근공시">최근공시</a>
+				<ul>
+					<li><a onclick="goMenu('/dsac001/mainY.do', '');" href="javascript:void(0);" title="유가증권시장">유가증권시장</a></li>
+					<li><a onclick="goMenu('/dsac001/mainK.do', '');" href="javascript:void(0);" title="코스닥시장">코스닥시장</a></li>
+					<li><a onclick="goMenu('/dsac001/mainN.do', '');" href="javascript:void(0);" title="코넥스시장">코넥스시장</a></li>
+					<li><a onclick="goMenu('/dsac001/mainG.do', '');" href="javascript:void(0);" title="기타법인">기타법인</a></li>
+					<li><a onclick="goMenu('/dsac001/mainAll.do', '');" href="javascript:void(0);" title="전체">전체</a></li>
+					<li><a onclick="goMenu('/dsac001/mainO.do', '');" href="javascript:void(0);" title="5%ㆍ임원보고">5%ㆍ임원보고</a></li>
+					<li><a onclick="goMenu('/dsac001/mainF.do', '');" href="javascript:void(0);" title="펀드공시">펀드공시</a></li>
+					<li><a onclick="goMenu('/dsac001/mainMy.do', '');" href="javascript:void(0);" title="My공시">My공시</a></li>
+				</ul>
+			</li>
+			<li id="menu_2">
+				<a data-click="/dsab007/main.do?option=corp" href="javascript:void(0);" title="공시서류검색">공시서류검색</a>
+				<ul>
+					<li><a onclick="goMenu('/dsab007/main.do?option=corp', '');" href="javascript:void(0);" title="공시통합검색">공시통합검색</a></li>
+					<li><a onclick="goMenu('/dsab001/main.do', '');" href="javascript:void(0);" title="회사별검색">회사별검색</a></li>
+
+					<li><a onclick="goMenu('/dsab005/main.do', '');" href="javascript:void(0);" title="펀드공시상세검색">펀드공시상세검색</a></li>
+					<li><a onclick="goMenu('/dsac003/mainY.do', '');" href="javascript:void(0);" title="최근정정보고서">최근정정보고서</a></li>
+					<li><a onclick="goMenu('/dsac004/main.do', '');" href="javascript:void(0);" title="최근삭제보고서">최근삭제보고서</a></li>
+					<li><a onclick="goMenu('/dsab009/main.do', '');" href="javascript:void(0);" title="고급검색">고급검색</a></li>
+				</ul>
+			</li>
+
+			<li id="menu_3">
+				<a data-click="/dsae001/main.do" href="javascript:void(0);" title="기업개황">기업개황</a>
+				<ul>
+					<li><a onclick="goMenu('/dsae001/main.do', '');" href="javascript:void(0);" title="기업개황">기업개황</a></li>
+				</ul>
+			</li>
+
+
+			<li id="menu_4">
+				<a data-click="/dsac005/main.do" href="javascript:void(0);" title="공모정보">공모정보</a>
+				<ul>
+					<li><a onclick="goMenu('/dsac005/main.do', '');" href="javascript:void(0);" title="공모게시판">공모게시판</a></li>
+					<li><a onclick="goMenu('/dsac006/main.do', '');" href="javascript:void(0);" title="발행공시 검색">발행공시 검색</a></li>
+					<li><a onclick="goMenu('/dsac007/main.do', '');" href="javascript:void(0);" title="모집ㆍ매출 실적">모집ㆍ매출 실적</a></li>
+					<li><a onclick="goMenu('/dsac008/main.do', '');" href="javascript:void(0);" title="청약달력(지분증권)">청약달력(지분증권)</a></li>
+				</ul>
+			</li>
+
+			<li>
+				<a data-click="https://opendart.fss.or.kr/disclosureinfo/biz/main.do" href="javascript:void(0);" data-gubun="open" title="OpenDART">OpenDART</a>
+				<ul>
+					<li><a href="https://opendart.fss.or.kr/disclosureinfo/biz/main.do" target="_blank" title="공시정보활용마당외부링크">공시정보활용마당<i class="outsideLink">외부링크</i></a></li>
+					<li><a href="https://opendart.fss.or.kr/intro/infoApiList.do" target="_blank" title="오픈API외부링크">오픈API<i class="outsideLink">외부링크</i></a></li>
+				</ul>
+			</li>
+			<li><a data-click="/info/main.do" href="javascript:void(0);" data-gubun="open" title="공시업무ㆍ제도">공시업무ㆍ제도</a>
+				<ul>
+					<li><a href="/info/main.do" target="_blank" title="기업공시길라잡이외부링크">기업공시길라잡이<i class="outsideLink">외부링크</i></a></li>
+					<li><a href="/info/searchGuide.do" target="_blank" title="기업공시제도일반외부링크">기업공시제도일반<i class="outsideLink">외부링크</i></a></li>
+					<li><a href="/info/searchBodo.do" target="_blank" title="보도자료외부링크">보도자료<i class="outsideLink">외부링크</i></a></li>
+					<li><a href="/info/main.do?menu=410" target="_blank" title="정기보고서 제출기한외부링크">정기보고서 제출기한<i class="outsideLink">외부링크</i></a></li>
+				</ul>
+			</li>
+			<li><a data-click="/introduction/content1.do" href="javascript:void(0);" title="DART 소개">DART 소개</a>
+				<ul class="last">
+					<li><a onclick="goMenu('/introduction/content1.do', '');" href="javascript:void(0);" title="전자공시시스템이란">전자공시시스템이란</a></li>
+					<li><a onclick="goMenu('/introduction/content2.do', '');" href="javascript:void(0);" title="보고서정보">보고서정보</a></li>
+					<li><a onclick="goMenu('/introduction/content3.do', '');" href="javascript:void(0);" title="관계법규 등">관계법규 등</a></li>
+					<li><a onclick="goMenu('/introduction/content4.do', '');" href="javascript:void(0);" title="정정신고서이용시 유의사항">정정신고서이용시 유의사항</a></li>
+					<li><a onclick="goMenu('/dsah004/main.do', '');" href="javascript:void(0);" title="DART알림마당">DART알림마당</a></li>
+					<li><a onclick="goMenu('/introduction/content5.do', '');" href="javascript:void(0);" title="정보이용시 유의사항">정보이용시 유의사항</a></li>
+					<li><a onclick="goMenu('/introduction/content6.do', '');" href="javascript:void(0);" title="RSS">RSS</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<button class="btnMenuAll" title="전체메뉴가기" onclick="location.href='/sitemap.do'">전체메뉴보기</button>
+	<button class="btnMenuClose" title="메뉴 닫기 버튼"></button>
+	<div class="subBg" style="display: none;"></div>
+	<div class="mask"></div>
+</div>
+				</div>
+			</div>
+			<!-- TOP LAYOUT END -->
+			<!-- BODY LALYOUT START -->
+			<div id="container">
+
+				<div id="contentsWrap">
+					<!-- LEFT LALYOUT START -->
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+function menuOn(obj, url) {
+	/*자바스크립트를 제거 하더라도 이동이 가능하도록 a태그 안에 실제 URL맵핑함 2012/06/12 유영근*/
+	$j("#lnbWrap").find(".on").removeClass();
+	$j(obj).parent().addClass("on");
+	moveMenu(url);
+}
+function moveMenu(url) {
+	document.location.replace(url);
+}
+</script>
+<div id="lnbWrap">
+
+
+
+
+
+	<div id="lnb">
+		<h2>기업개황</h2>
+		<ul>
+			<li id="dsae001_main" class="on">
+				<a href="#none" onclick="menuOn(this, '/dsae001/main.do');" title="기업개황">기업개황</a>
+			</li>
+		</ul>
+	</div>
+
+
+
+
+
+
+
+
+
+</div>
+					<!-- LEFT LAYOUT END -->
+
+					<!-- MAIN LALYOUT START -->
+					<div id="contents">
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+	$j(document).ready(function() {
+
+
+		var uri = "/dsae001/main.do";
+
+		var menuPath = uri.split("/");
+		var tempPath;
+		if(menuPath.length == 3){
+			tempPath = menuPath[2].split('.');
+			menuPath[2] = tempPath[0]
+		}
+
+		var menuData =
+		{
+			"dsac001":{
+				"mainY":{
+					"subTitle":"유가증권시장",
+					"path":["home" ,"최근공시", "유가증권시장"]
+				},
+				"mainK":{
+					"subTitle":"코스닥시장",
+					"path":["home" ,"최근공시", "코스닥시장"]
+				},
+				"mainN":{
+					"subTitle":"코넥스시장",
+					"path":["home" ,"최근공시", "코넥스시장"]
+				},
+				"mainG":{
+					"subTitle":"기타법인",
+					"path":["home" ,"최근공시", "기타법인"]
+				},
+				"mainAll":{
+					"subTitle":"전체",
+					"path":["home" ,"최근공시", "전체"]
+				},
+				"mainO":{
+					"subTitle":"5%ㆍ임원보고",
+					"path":["home" ,"최근공시", "5%ㆍ임원보고"]
+				},
+				"mainF":{
+					"subTitle":"펀드공시",
+					"path":["home" ,"최근공시", "펀드공시"]
+				},
+				"mainMy":{
+					"subTitle":"My 공시",
+					"path":["home" ,"최근공시", "My 공시"]
+				},
+			},  "dsac003":{
+				"mainY":{
+					"subTitle":"최근정정보고서",
+					"path":["home" ,"공시서류검색", "최근정정보고서"]
+				}
+			}, "dsac004":{
+				"main":{
+					"subTitle":"최근삭제보고서",
+					"path":["home" ,"공시서류검색", "최근삭제보고서"]
+				}
+			}, "dsab009":{
+				"main":{
+					"subTitle":"고급검색",
+					"path":["home" ,"공시서류검색", "고급검색"]
+				}
+			}, "dsac005":{
+				"main":{
+					"subTitle":"공모게시판",
+					"path":["home" ,"공모정보", "공모게시판"]
+				}
+			}, "dsac006":{
+				"main":{
+					"subTitle":"발행공시 검색",
+					"path":["home" ,"공모정보", "발행공시 검색"]
+				}
+			}, "dsac007":{
+				"main":{
+					"subTitle":"모집ㆍ매출 실적",
+					"path":["home" ,"공모정보", "모집ㆍ매출 실적"]
+				}
+			}, "dsac008":{
+				"main":{
+					"subTitle":"청약 달력(지분증권)",
+					"path":["home" ,"공모정보", "청약 달력(지분증권)"]
+				}
+			}, "dsab005":{
+				"main":{
+					"subTitle":"펀드공시상세검색",
+					"path":["home" ,"공시서류검색", "펀드공시상세검색"]
+				}
+			}, "dsah004":{
+				"main":{
+					"subTitle":"DART알림마당",
+					"path":["home" ,"공시업무ㆍ제도", "DART알림마당"]
+				},
+				"select":{
+					"subTitle":"DART알림마당",
+					"path":["home" ,"공시업무ㆍ제도", "DART알림마당"]
+				}
+			}, "dsab007":{
+				"main":{
+					"subTitle":"공시통합검색",
+					"path":["home" ,"공시서류검색", "공시통합검색"]
+				}
+			}, "dsab001": {
+				"main":{
+					"subTitle":"회사별 검색",
+					"path":["home" ,"공시서류검색", "회사별검색"]
+				}
+			}, "dsae001":{
+				"main":{
+					"subTitle":"기업개황",
+					"path":["home" ,"기업개황",""]
+				}
+			}, "introduction":{
+				"content1":{
+					"subTitle":"전자공시시스템이란",
+					"path":["home" ,"DART 소개","전자공시시스템이란"]
+				},
+				"content2":{
+					"subTitle":"보고서정보",
+					"path":["home" ,"DART 소개","보고서정보"]
+				},
+				"content3":{
+					"subTitle":"관계법규 등",
+					"path":["home" ,"DART 소개","관계법규 등"]
+				},
+				"content4":{
+					"subTitle":"정정신고서이용시 유의사항",
+					"path":["home" ,"DART 소개","정정신고서이용시 유의사항"]
+				},
+				"content5":{
+					"subTitle":"정보이용시 유의사항",
+					"path":["home" ,"DART 소개","정보이용시 유의사항"]
+				},
+				"content6":{
+					"subTitle":"RSS",
+					"path":["home" ,"DART 소개","RSS"]
+				}
+			}, "sitemap":{
+				"sitemap":{
+					"subTitle":"사이트 맵",
+					"path":["home" ,"사이트 맵",""]
+				}
+			}
+		}
+
+		if(menuPath.length == 3){
+			var menu = menuData[menuPath[1]][menuPath[2]]
+			$j("#subTitle").text(menu.subTitle);
+
+			var pathHTML = "";
+			var path = menu["path"];
+			path.forEach(function(data,key){
+				pathHTML += "<li>" + data + "</li>";
+			});
+			$j("#path").html(pathHTML);
+
+			//상세화면 조건분리
+			if(menuPath[1] == 'dsah004' || menuPath[2] == 'select'){
+				menuPath[2] = 'main';
+			}
+			//menu on
+			$j("#"+menuPath[1] + '_' + menuPath[2]).addClass("on");
+		}
+		//상세화면 조건분리
+		if(menuPath[1] == 'sitemap.do'){
+			menuPath[1] = 'sitemap';
+			menuPath[2] = 'sitemap';
+			var menu = menuData[menuPath[1]][menuPath[2]]
+			$j("#subTitle").text(menu.subTitle);
+
+			var pathHTML = "";
+			var path = menu["path"];
+			path.forEach(function(data,key){
+				pathHTML += "<li>" + data + "</li>";
+			});
+			$j("#path").html(pathHTML);
+		}
+	});
+</script>
+ <div class="headTitle">
+	<h3 id="subTitle">기업개황</h3>
+	<ul class="navy" id="path"><li>home</li><li>기업개황</li><li></li></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- jstree -->
+<link rel="stylesheet" href="/js/jsTree/default/style.css">
+<script src="/js/jsTree/jstree.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+var selectedNode;
+$j(document).ready(function() {
+	$j.ajax({
+		url : '/dsae001/selectCorpTree.do',
+		type : 'post',
+		dataType : 'json',
+		success:function(data){
+			data = JSON.stringify(data);
+			data = data.toLowerCase();
+			data = JSON.parse(data);
+
+			var jsTree = $j('#businessTree').on("select_node.jstree", function (e, data) {
+				selectedNode= data.node;
+				$j('#businessCode').val(data.node.original.id);
+				search(1);
+			})
+			.on('loaded.jstree', function(){
+				$j(this).jstree('open_node', 'ul > li:first');
+			})
+			.jstree({
+				'core' : {
+					'multiple' : false,
+					'themes' : {
+						'icons' : false
+					},
+					'data' : data
+				}
+			});
+		}
+	});
+	initLayerNew('winCorpInfo');
+
+	/* initSearchCorp();
+	initSearchCategory();
+	findForm("searchForm").textCrpCik.value="";
+	initCorpInfo(); */
+
+});
+
+$j(function(){
+	$j("#bsnRgsNo_1").keyup(function(e){
+		if($j(this).val().length >= 3){
+			$j(this).next().focus();
+		}
+	})
+
+	$j("#bsnRgsNo_2").keyup(function(e){
+		if($j(this).val().length >= 2){
+			$j(this).next().focus();
+		}
+	})
+});
+
+function search(page) {
+
+	popClose('ceoInfo');
+	popClose('compInfo');
+
+	var pattern1 = /[0-9]/;
+
+	try {
+
+		/*  init function */
+		var frm = findForm("searchForm");
+		clearSearchCorpText();
+
+	    var searchCorpType = $j('#searchCorpType').val();
+	    //검색종류 회사명
+
+	    //유효성 체크 시작
+	    $j('#bsnRgsNo').val($j('#bsnRgsNo_1').val() + $j('#bsnRgsNo_2').val() + $j('#bsnRgsNo_3').val());
+
+	    if(frm["textCrpCik"].value == ""){
+		    if (frm["textCrpNm"].value.trim() == ""
+		    		&& frm["bsnRgsNo"].value.trim() == ""
+	    			&& frm["crpRgsNo"].value.trim() == ""
+		    		&& frm["businessCode"].value.trim() == "all"
+		    		&& frm["corporationType"].value.trim() == "all"
+		    		&& frm["searchIndex"].value.trim() == "") {
+		    	alert("빠른 검색 서비스를 제공하기 위해 검색조건을 제한합니다.");
+		    	return;
+		    }
+		}
+
+	    if(searchCorpType == '1'){
+    		if (!checkQueryString(frm.textCrpNm.value)) {
+		    	alert("회사명에 [! % = \" ' -- < > |] 문자를 입력할 수 없습니다.");
+		    	return;
+		    }
+	    }
+
+	  	//검색종류 사업자
+	    if(searchCorpType == '2'){
+	    	if(($j('#bsnRgsNo_1').val().trim() == '' || $j('#bsnRgsNo_2').val().trim() == '' || $j('#bsnRgsNo_3').val().trim() == '') && frm["searchIndex"].value == "" && frm["businessCode"].value == "all" && frm["corporationType"].value == "all"){
+	    		alert("사업자등록 번호를 입력 해 주세요.");
+	    		return;
+	    	}else if($j('#bsnRgsNo_1').val() != '' && $j('#bsnRgsNo_2').val() != '' && $j('#bsnRgsNo_3').val() != '') {
+	    		if( !(pattern1.test($j('#bsnRgsNo_1').val())
+    					&& pattern1.test($j('#bsnRgsNo_2').val())
+    					&& pattern1.test($j('#bsnRgsNo_3').val())) ){
+		    		alert("사업자등록 번호는 숫자만 입력 가능합니다.");
+		    		return;
+		    	}
+    		}
+
+	    	$j('#bsnRgsNo').val($j('#bsnRgsNo_1').val() + $j('#bsnRgsNo_2').val() + $j('#bsnRgsNo_3').val());
+
+	    }
+
+	  	//검색종류 법인등록번호
+	    if(searchCorpType == '3'){
+	    	if($j('#crpRgsNo').val().trim() == '' && frm["searchIndex"].value == "" && frm["businessCode"].value == "all" && frm["corporationType"].value == "all") {
+	    		alert("법인등록번호를 입력해 주세요.");
+	    		return;
+	    	}
+
+	    	if (!checkQueryString(frm.crpRgsNo.value)) {
+		    	alert("법인등록번호에 [! % = \" ' -- < > |] 문자를 입력할 수 없습니다.");
+		    	return;
+		    }
+	    }
+
+	    if ((frm["textCrpNm"].value != "" || frm["bsnRgsNo"].value != "" || frm["crpRgsNo"].value != "") && frm["searchIndex"].value != "") {
+	    	frm["searchIndex"].value = "";
+	    }
+
+	   /*  init paging --------------------------------------------------------- */
+	    if(page=='') page=1;
+	    frm.currentPage.value = page;
+
+	  /*    send ajax request & response ---------------------------------------- */
+	    xajax.initParameter();
+	    xajax.sendForm("searchForm", "/dsae001/search.ax", function(str) {
+	    	getRef("listContents").innerHTML = str;
+	    	if (getRef("corp")) {
+	    		history(getRef("historyCik").innerHTML);
+	    	}
+	    });
+	} finally {
+	    blurSearchCorp();	// init 'textCrpNm' field
+	}
+ }
+
+
+function select(key) {
+	//getRef("textCrpNm").focus();
+	//destoryToolTip();
+	xajax.initParameter();
+	xajax.addParameter("selectKey", key);
+	xajax.setTimeout(20000);
+	xajax.simpleSend("/dsae001/select.ax", function(str) {
+	    getRef("corpInfoDiv").innerHTML = str;
+	    getRef("corpInfoDiv").style.display = "";
+		historyNew(key, '/corp/historyFmlNm.ax', 'compInfo');
+		historyNew(key, '/corp/historyCeoNm.ax', 'ceoInfo');
+
+	});
+}
+
+function hideCorpInfoDetail() {
+	getRef("corpInfoDiv").style.display = "none";
+}
+
+function searchCorpIdx(num, obj){
+	$j('#searchCorpType').val('1').trigger('change'); /* 기업개황		서나람	 - 자음 클릭시 회사명으로 변경 필요 */
+	$j(obj).parent().parent().find('li').removeClass('on');
+	$j(obj).parent().addClass('on');
+
+	var frm = findForm("searchForm");
+    frm.textCrpNm.value = "";
+    frm.bsnRgsNo.value = "";
+    frm.bsnRgsNo_1.value = "";
+    frm.bsnRgsNo_2.value = "";
+    frm.bsnRgsNo_3.value = "";
+    frm.crpRgsNo.value = "";
+    frm.textCrpCik.value = "";
+    frm.searchIndex.value = num;
+    search(1);
+}
+
+function searchReport(cik, crpnm) {
+	var viewer = 'viewer'+cik;
+	var win2 = window.open('about:blank',viewer);
+	var frm = findForm("searchForm");
+	frm.target=viewer;
+	frm.textCrpCik.value = cik;
+	frm.textCrpNm.value = crpnm;
+	frm.method =  "post";
+	frm.action = "/dsab001/main.do";
+	frm.submit();
+}
+
+function clearSearchIndex() {
+	var frm = findForm("searchForm");
+    frm.searchIndex.value = "";
+    $j('.initialSearch > ul').find('li').removeClass('on');
+}
+
+function changeCrpNm(){
+	getRef("textCrpCik").value = "";
+}
+
+function loadfouns(){
+	openSearchCorpWindow('searchForm');
+	/* setTimeout(function(){document.searchForm.textCrpNm.focus();},500); */
+	/* setTimeout("loaddiv()",1000); */
+}
+
+/* function loaddiv(){
+	var frm = findForm("corpSearchForm");
+	frm.textCrpNm.focus();
+}
+ */
+
+function fn_initSearchWord(){
+	//검색어 초기화.
+	$j('#bsnRgsNo_1').hide();
+	$j('#bsnRgsNo_2').hide();
+	$j('#bsnRgsNo_3').hide();
+	$j('#crpRgsNo').hide();
+	$j('#textCrpNm').hide();
+	$j('#bottomBtnWrap').hide();
+
+	$j('#bsnRgsNo').val('');
+	$j('#bsnRgsNo_1').val('');
+	$j('#bsnRgsNo_2').val('');
+	$j('#bsnRgsNo_3').val('');
+	$j('#crpRgsNo').val('');
+	$j('#textCrpNm').val('');
+
+	//트리 선택 전체
+	$j('#businessTree').jstree('deselect_node', selectedNode);
+	$j('#businessCode').val('all');
+	$j('#searchIndex').val('');
+	$j('#ulIdx li').removeClass('on')
+
+	//회사상세
+
+}
+
+function fn_changeCorpType(){
+
+	 var searchCorpType = $j('#searchCorpType').val();
+
+	 fn_initSearchWord();
+
+	 if(searchCorpType == '1'){
+		 $j('#textCrpNm').show();
+		 $j('#btnLoadFouns').show();
+	 }else if(searchCorpType == '2'){
+		 $j('#bsnRgsNo_1').show();
+		 $j('#bsnRgsNo_2').show();
+		 $j('#bsnRgsNo_3').show();
+		 $j('#btnLoadFouns').hide();
+	 }else if(searchCorpType == '3'){
+		 $j('#crpRgsNo').show();
+		 $j('#btnLoadFouns').hide();
+	 }else{
+		 $j('#textCrpNm').show();
+		 $j('#btnLoadFouns').show();
+	 }
+ }
+
+ function fn_toggleTab(obj){
+
+	 fn_initSearchWord();
+	 //검색결과 초기화.
+	 popClose('ceoInfo');
+	 popClose('compInfo');
+
+	 var corpTabelTbody = $j('#corpTabel').find('tbody');
+	 var emptyTbody = '';
+		 emptyTbody +='<tr class="noData">';
+		 emptyTbody +='<td class="noData" colspan="2">';
+		 emptyTbody +='	일치하는 회사명이 없습니다.';
+		 emptyTbody +='</td>';
+		 emptyTbody +='</tr>';
+	 $j(corpTabelTbody).html(emptyTbody);
+
+	 var corpDetailTabelTd = $j('#corpDetailTabel').find('td');
+	 corpDetailTabelTd.text('');
+	 //$j(corpDetailTabelTd[corpDetailTabelTd.length-1]).text('월');
+
+	 $j('#searchCorpType').val('1');
+	 $j('#textCrpNm').show();
+	 $j('#corporationType').val('all');
+
+	 $j('.tabWrap > ul').find('li').removeClass('on');
+
+	 $j('.psWrap').empty();
+
+	 $j('#type').val(obj);
+
+	 if(obj == 'corp'){
+
+		 $j('#rightWrap').removeClass('WF');
+		 $j('#corpInfoDiv').addClass('viewWrapL');
+		 $j('#corpInfoDiv').removeClass('viewWrapS');
+		 $j('#corpTab').addClass('on');
+		 $j('.leftWrap').show();
+		 $j('.panelWrap').hide();
+	 }else{
+		 $j('#rightWrap').addClass('WF');
+		 $j('#corpInfoDiv').addClass('viewWrapS');
+		 $j('#corpInfoDiv').removeClass('viewWrapL');
+		 $j('#businessTab').addClass('on');
+		 $j('.leftWrap').hide();
+		 $j('.panelWrap').show();
+	 }
+ }
+
+ function fn_excelDown(){
+
+	 var noData = $j('.listWrapS').find('.noData');
+	 if(noData.length > 0){
+		 alert('조회 결과가 없습니다.');
+	 }else{
+		 var pattern1 = /[0-9]/;
+			try {
+
+				/*  init function */
+				var frm = findForm("searchForm");
+				clearSearchCorpText();
+
+				var searchCorpType = $j('#searchCorpType').val();
+			    //검색종류 회사명
+			    if(searchCorpType == '1'){
+
+		    		if(frm["textCrpCik"].value == ""){
+		    		    if (frm["textCrpNm"].value == ""
+		    		    		&& frm["bsnRgsNo"].value == ""
+		    	    			&& frm["crpRgsNo"].value == ""
+		    		    		&& frm["businessCode"].value == "all"
+		    		    		&& frm["corporationType"].value == "all"
+		    		    		&& frm["searchIndex"].value == "") {
+		    		    	alert("회사명을 입력해 주세요.");
+		    		    	return;
+		    		    }
+		    		}
+
+		    		if (!checkQueryString(frm.textCrpNm.value)) {
+				    	alert("회사명에 [! % = \" ' -- < > |] 문자를 입력할 수 없습니다.");
+				    	return;
+				    }
+
+			    }
+
+			  	//검색종류 사업자
+			    if(searchCorpType == '2'){
+
+			    	if($j('#type').val() == 'corp') {
+				    	if(($j('#bsnRgsNo_1').val() == '' || $j('#bsnRgsNo_2').val() == '' || $j('#bsnRgsNo_3').val() == '') && frm["searchIndex"].value == ""){
+				    		alert("사업자등록 번호를 입력 해 주세요.");
+				    		return;
+				    	}
+			    		if($j('#bsnRgsNo_1').val() == '' && $j('#bsnRgsNo_2').val() == '' && $j('#bsnRgsNo_3').val()) {
+				    		if( !(pattern1.test($j('#bsnRgsNo_1').val())
+			    					&& pattern1.test($j('#bsnRgsNo_2').val())
+			    					&& pattern1.test($j('#bsnRgsNo_3').val())) ){
+					    		alert("사업자등록 번호는 숫자만 입력 가능합니다.");
+					    		return;
+					    	}
+			    		}
+			    	} else {
+			    		if(frm["businessCode"].value == "all" && frm["corporationType"].value == "all") {
+				    		if($j('#bsnRgsNo_1').val() == '' || $j('#bsnRgsNo_2').val() == '' || $j('#bsnRgsNo_3').val() == ''  && frm["searchIndex"].value == "") {
+				    			alert("사업자등록 번호를 입력 해 주세요.");
+					    		return;
+				    		}
+				    		if($j('#bsnRgsNo_1').val() == '' && $j('#bsnRgsNo_2').val() == '' && $j('#bsnRgsNo_3').val()) {
+					    		if( !(pattern1.test($j('#bsnRgsNo_1').val())
+				    					&& pattern1.test($j('#bsnRgsNo_2').val())
+				    					&& pattern1.test($j('#bsnRgsNo_3').val())) ){
+						    		alert("사업자등록 번호는 숫자만 입력 가능합니다.");
+						    		return;
+						    	}
+				    		}
+			    		} else {
+			    			if($j('#bsnRgsNo_1').val() != '' || $j('#bsnRgsNo_2').val() != '' || $j('#bsnRgsNo_3').val() != '') {
+			    				if( !(pattern1.test($j('#bsnRgsNo_1').val())
+				    					&& pattern1.test($j('#bsnRgsNo_2').val())
+				    					&& pattern1.test($j('#bsnRgsNo_3').val())) ){
+						    		alert("사업자등록 번호는 숫자만 입력 가능합니다.");
+						    		return;
+						    	}
+			    			}
+			    		}
+			    	}
+
+
+			    	$j('#bsnRgsNo').val($j('#bsnRgsNo_1').val() + $j('#bsnRgsNo_2').val() + $j('#bsnRgsNo_3').val());
+
+			    }
+
+			  	//검색종류 법인등록번호
+			    if(searchCorpType == '3'){
+			    	if($j('#type').val() == 'corp') {
+				    	if($j('#crpRgsNo').val() == '' && frm["searchIndex"].value == "") {
+				    		alert("법인등록번호를 입력해 주세요.");
+				    		return;
+				    	}
+
+				    	if (!checkQueryString(frm.crpRgsNo.value)) {
+					    	alert("법인등록번호에 [! % = \" ' -- < > |] 문자를 입력할 수 없습니다.");
+					    	return;
+					    }
+			    	} else {
+			    		if(frm["businessCode"].value == "all" && frm["corporationType"].value == "all") {
+			    			if($j('#crpRgsNo').val() == '') {
+					    		alert("법인등록번호를 입력해 주세요.");
+					    		return;
+					    	}
+
+					    	if (!checkQueryString(frm.crpRgsNo.value)) {
+						    	alert("법인등록번호에 [! % = \" ' -- < > |] 문자를 입력할 수 없습니다.");
+						    	return;
+						    }
+			    		} else {
+			    			if (!checkQueryString(frm.crpRgsNo.value)) {
+						    	alert("법인등록번호에 [! % = \" ' -- < > |] 문자를 입력할 수 없습니다.");
+						    	return;
+						    }
+			    		}
+			    	}
+			    }
+
+
+			    if (
+		    		(frm["textCrpNm"].value != "" || frm["bsnRgsNo"].value != "" || frm["crpRgsNo"].value != "")
+			    		&& frm["searchIndex"].value != "") {
+			    	frm["searchIndex"].value = "";
+			    }
+
+			    frm.action = '/dsae001/downloadExcel.do';
+			    frm.submit();
+			} finally {
+			    blurSearchCorp();
+			}
+	 }
+ }
+//]]>
+</script>
+<!-- enterprise -->
+<div class="enterprise">
+<input type="hidden" id="type" value="corp">
+<form name="searchForm" id="searchForm" action="/dsae001/search.ax" onsubmit="return false">
+<input type="hidden" name="startDate" id="startDate" value="">
+<input type="hidden" name="endDate" id="endDate" value="">
+<input type="hidden" name="currentPage" id="currentPage" value="">
+<input type="hidden" name="maxResults" id="maxResults" value="">
+<input type="hidden" name="maxLinks" id="maxLinks" value="">
+<input type="hidden" name="sort" id="sort" value="">
+<input type="hidden" name="series" id="series" value="">
+<input type="hidden" name="selectKey" id="selectKey" value="">
+<input type="hidden" name="searchIndex" id="searchIndex" value="">
+<input type="hidden" name="textCrpCik" id="textCrpCik" value="">
+<input type="hidden" name="autoSearch" id="autoSearch" value="true">
+<input type="hidden" name="businessCode" id="businessCode" value="all">
+<input type="hidden" name="bsnRgsNo" id="bsnRgsNo" value="">
+<input type="submit" style="display:none" name="goAction">
+	<!-- tabEnter -->
+	<div class="tabEnter">
+		<div class="tabWrap">
+			<ul>
+				<li class="on" id="corpTab" onclick="fn_toggleTab('corp')"><a href="#none" title="회사별">회사별</a></li>
+				<li id="businessTab" onclick="fn_toggleTab('business')"><a href="#none" title="업종별">업종별</a></li>
+			</ul>
+		</div>
+		<div class="btnWrap">
+			<a class="btn" title="도움말" onclick="openHelp(130); return false;" href="javascript:void(0);"><i class="iconHelp"></i>도움말</a>
+		</div>
+	</div>
+
+	<!-- comWrap -->
+	<div class="contWrap" id="corpWrap">
+		<!-- leftWrap -->
+		<div class="leftWrap">
+			<div class="initialSearch">
+				<ul id="ulIdx">
+					<li><a href="#none" onclick="searchCorpIdx('0', this); return false;" title="ㄱ">ㄱ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('1', this);" title="ㄴ">ㄴ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('2', this);" title="ㄷ">ㄷ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('3', this);" title="ㄹ">ㄹ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('4', this);" title="ㅁ">ㅁ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('5', this);" title="ㅂ">ㅂ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('6', this);" title="ㅅ">ㅅ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('7', this);" title="ㅇ">ㅇ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('8', this);" title="ㅈ">ㅈ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('9', this);" title="ㅊ">ㅊ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('10', this);" title="ㅋ">ㅋ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('11', this);" title="ㅌ">ㅌ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('12', this);" title="ㅍ">ㅍ</a></li>
+					<li><a href="#none" onclick="searchCorpIdx('13', this);" title="ㅎ">ㅎ</a></li>
+					<li><a class="eng" href="#none" onclick="searchCorpIdx('15', this);" title="A~L">A~L</a></li>
+					<li><a class="eng" href="#none" onclick="searchCorpIdx('16', this);" title="M~Z">M~Z</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- //leftWrap -->
+
+		<!-- panelWrap -->
+		<div class="panelWrap" style="display:none;">
+			<ul id="businessTree" class="jstree jstree-1 jstree-default" role="tree" tabindex="0" aria-activedescendant="all" aria-busy="false"><ul class="jstree-container-ul jstree-children jstree-no-icons" role="group"><li role="presentation" aria-selected="false" aria-level="1" aria-labelledby="all_anchor" aria-expanded="true" id="all" class="jstree-node jstree-last jstree-open"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="1" aria-expanded="true" id="all_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>전체</a><ul role="group" class="jstree-children" style=""><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root0103_anchor" aria-expanded="false" id="root0103" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root0103_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>농업, 임업 및 어업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root0508_anchor" aria-expanded="false" id="root0508" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root0508_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>광업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root1033_anchor" aria-expanded="false" id="root1033" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root1033_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>제조업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root3434_anchor" aria-expanded="false" id="root3434" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root3434_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>산업용 기계 및 장비 수리업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root3535_anchor" aria-expanded="false" id="root3535" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root3535_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>전기, 가스, 증기 및 공기 조절 공급업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root3636_anchor" aria-expanded="false" id="root3636" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root3636_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>수도업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root3737_anchor" aria-expanded="false" id="root3737" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root3737_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>하수, 폐수 및 분뇨 처리업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root3838_anchor" aria-expanded="false" id="root3838" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root3838_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>폐기물 수집, 운반, 처리 및 원료 재생업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root3939_anchor" aria-expanded="false" id="root3939" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root3939_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>환경 정화 및 복원업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root4142_anchor" aria-expanded="false" id="root4142" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root4142_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>종합 건설업 및 전문직별 공사업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root4545_anchor" aria-expanded="false" id="root4545" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root4545_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>자동차 및 부품 판매업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root4646_anchor" aria-expanded="false" id="root4646" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root4646_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>도매 및 상품 중개업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root4747_anchor" aria-expanded="false" id="root4747" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root4747_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>소매업; 자동차 제외</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root4952_anchor" aria-expanded="false" id="root4952" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root4952_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>운수업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root5556_anchor" aria-expanded="false" id="root5556" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root5556_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>숙박업, 음식점 및 주점업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root5863_anchor" aria-expanded="false" id="root5863" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root5863_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>출판, 영상, 방송, 우편통신, 컴퓨터 및 정보서비스업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root6466_anchor" aria-expanded="false" id="root6466" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root6466_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>금융 및 보험업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root6868_anchor" aria-expanded="false" id="root6868" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root6868_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>부동산업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root7073_anchor" aria-expanded="false" id="root7073" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root7073_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>연구개발, 전문 서비스업, 건축기술, 과학 및 기술 서비스업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root7475_anchor" aria-expanded="false" id="root7475" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root7475_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>사업시설 관리, 조경 서비스업 및 사업지원 서비스업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root7676_anchor" aria-expanded="false" id="root7676" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root7676_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>임대업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root8484_anchor" aria-expanded="false" id="root8484" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root8484_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>공공 행정, 국방 및 사회보장 행정</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root8585_anchor" aria-expanded="false" id="root8585" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root8585_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>교육 서비스업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root8687_anchor" aria-expanded="false" id="root8687" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root8687_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>보건업 및 사회복지 서비스업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root9091_anchor" aria-expanded="false" id="root9091" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root9091_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>창작, 예술, 스포츠 및 여가관련 서비스업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root9496_anchor" aria-expanded="false" id="root9496" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root9496_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>협회 및 단체, 수리 및 기타 개인 서비스업</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="root9798_anchor" aria-expanded="false" id="root9798" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" aria-expanded="false" id="root9798_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>가구내 고용활동 및 달리 분류되지 않은 자가소비 생산활동</a></li><li role="presentation" aria-selected="false" aria-level="2" aria-labelledby="99_anchor" id="99" class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" role="treeitem" aria-selected="false" aria-level="2" id="99_anchor"><i class="jstree-icon jstree-themeicon" role="presentation"></i>국제 및 외국기관</a></li></ul></li></ul></ul>
+		</div>
+		<!-- //panelWrap -->
+
+		<!-- rightWrap -->
+		<div class="rightWrap" id="rightWrap">
+			<!-- searchWrap -->
+			<div class="searchWrap">
+				<!-- topSearch -->
+				<div class="topSearch">
+					<ul>
+						<li style="display:block;">
+							<select class="w10" id="searchCorpType" title="법인구분선택" onchange="fn_changeCorpType()">
+								<option value="1">회사명</option>
+								<option value="2">사업자등록번호</option>
+								<option value="3">법인등록번호</option>
+							</select>
+							<input class="w20" type="text" name="bsnRgsNo_1" id="bsnRgsNo_1" maxlength="3" size="3" title="검색어입력" style="display:none;" onkeypress="if(event.keyCode==13){search(1); return false;}">
+							<input class="w10" type="text" name="bsnRgsNo_2" id="bsnRgsNo_2" maxlength="2" size="2" title="검색어입력" style="display:none;" onkeypress="if(event.keyCode==13){search(1); return false;}">
+							<input class="w30" type="text" name="bsnRgsNo_3" id="bsnRgsNo_3" maxlength="5" size="5" title="검색어입력" style="display:none;" onkeypress="if(event.keyCode==13){search(1); return false;}">
+							<input class="w40" type="text" name="crpRgsNo" id="crpRgsNo" title="검색어입력" style="display:none;" maxlength="13" onkeypress="if(event.keyCode==13){search(1); return false;}">
+							<input class="w40 p10" type="text" name="textCrpNm" id="textCrpNm" title="검색어입력" onchange="changeCrpNm()" onfocus="clearSearchCorpText()" onblur="blurSearchCorp()" onkeypress="if(event.keyCode==13){search(1); return false;}" placeholder="회사명/종목코드 입력">
+							<a class="btnSearch01" id="btnLoadFouns" onclick="loadfouns();" href="javascript:void(0);" title="찾기">찾기</a>
+						</li>
+						<li style="display:none;">
+							<select class="w10" id="selSample00" title="법인구분선택">
+								<option value="0">선택</option>
+								<option value="1">회사명</option>
+								<option value="2">사업자등록번호</option>
+								<option value="3">법인등록번호</option>
+							</select>
+							<input class="w10" type="text" id="inpSample00" title="검색어입력">
+							<a class="btnSearch01" href="javascript:void(0);" title="찾기">찾기</a>
+						</li>
+						<li>
+							<label>법인유형</label>
+							<select class="w20" id="corporationType" name="corporationType" title="법인구분선택">
+								<option value="all">전체</option>
+								<option value="P">유가증권시장</option>
+								<option value="A">코스닥시장</option>
+								<option value="N">코넥스시장</option>
+								<option value="E">기타법인</option>
+							</select>
+							<a class="btnSearch02" href="javascript:clearSearchIndex(); search(1);" title="검색">검색</a>
+						</li>
+					</ul>
+					<span class="infoBox">*사업자등록번호로 검색 시 국내기업에만 해당됩니다.</span>
+				</div>
+				<!-- //topSearch -->
+				<!-- middleBtnWrap -->
+				<div class="middleBtnWrap">
+					<a class="btn" onclick="fn_excelDown()" href="javascript:void(0);" title="엑셀 다운로드"><i class="iconExc">엑셀</i>엑셀</a>
+				</div>
+				<!-- //middleBtnWrap -->
+				<div id="listContents">
+
+
+
+
+
+
+
+
+
+
+<!-- list -->
+<div class="listWrapS">
+	<div class="tbLThBg"></div>
+	<div class="tbLInner">
+		<table class="tb" summary="회사명,업종명 순으로 구성되어 있습니다" id="corpTabel">
+			<caption>회사명,업종명 리스트</caption>
+			<thead>
+				<tr>
+					<th scope="col" width="70%"><div class="thName">회사명</div></th>
+					<th scope="col" width="30%"><div class="thName">종목코드</div></th>
+				</tr>
+			</thead>
+			<tbody>
+
+
+
+					<tr class="noData">
+						<td class="noData" colspan="2">
+							일치하는 회사명이 없습니다.
+						</td>
+					</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- psWrap -->
+
+<!-- list -->
+				</div>
+
+			</div>
+			<!--//searchWrap -->
+
+
+			<!-- viewWrap -->
+			<div class="viewWrapL" id="corpInfoDiv">
+
+
+
+
+
+
+
+
+
+
+
+<div class="infoPop layerPopS" style="display:none" id="compInfo"></div>
+<div class="infoPop layerPopS" style="display:none" id="ceoInfo"></div>
+<table id="corpDetailTabel" class="EnterTbView" summary="기업개황정보의 회사이름, 종목코드, 대표자명, 법인구분, 사업자등록번호, 주소, 전화번호등을 알리는 표입니다.">
+	<caption>사업보고서 주요정보조회</caption>
+	<tbody>
+		<tr>
+			<th scope="row"><label for="Sample00">회사이름</label></th>
+			<td>
+
+
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">영문명</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">공시회사명</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">종목코드</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">대표자명</label></th>
+			<td>
+
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">법인구분</label></th>
+			<td>
+
+
+
+
+
+
+
+				</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">법인등록번호</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">사업자등록번호</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">주소</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">홈페이지</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">IR홈페이지</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">전화번호</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">팩스번호</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">업종명</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">설립일</label></th>
+			<td></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="Sample00">결산월</label></th>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+
+			</div>
+			<!-- //viewWrap -->
+		</div>
+		<!-- //rightWrap -->
+	</div>
+	<!-- //comWrap -->
+</form>
+</div>
+<!-- //enterprise -->
+
+					</div>
+					<!-- MAIN LALYOUT END -->
+				</div>
+				<div id="wingWrap" class="wingWrap">
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+$j(document).ready(function() {
+	$j('.btnTop').click(function(){
+		 $j(document).scrollTop(0);
+	});
+	if(onlyWebCssMode != null && onlyWebCssMode == "on"){
+		$j('#onlyWebCssMode').prop('checked', true);
+	}
+});
+function clickUpHistory() {
+	var width = $j('#history').find('li').outerHeight(true);
+	document.getElementById("history").scrollTop = document.getElementById("history").scrollTop - width;
+}
+
+function clickDownHistory() {
+	var width = $j('#history').find('li').outerHeight(true);
+	document.getElementById("history").scrollTop = document.getElementById("history").scrollTop + width;
+}
+
+</script>
+<script type="text/javascript">initMoving(document.getElementById("historyContents"), 180, 100, 250);</script>
+<span class="uiCheck">
+	<label for="onlyWebCssMode">창크기변경시 UI고정</label>
+	<input type="checkbox" id="onlyWebCssMode" name="onlyWebCssMode" value="on">
+</span>
+
+<div class="title">오늘본문서</div>
+<div class="wingBtn">
+	<div>
+		<!--데이타가 나올때-->
+		<div class="psNumber">
+			(총1건)
+		</div>
+		<div class="btnUp" onclick="clickUpHistory();">
+			<a onclick="clickUpHistory();" title="이전 문서" href="javascript:void(0);">위로</a>
+		</div>
+
+		<ul id="history" style="overflow: hidden; ">
+
+				<li>
+					<span class="info">
+						<a href="#openReport" onclick="openReportViewerMain('20230818000273'); return false;" title="감사보고서" style="cursor:pointer;">감사보고서</a>
+					</span>
+					<span class="name">
+						비오비플래닝
+					</span>
+				</li>
+
+		</ul>
+		<div class="btnDown" onclick="clickDownHistory();">
+			<a onclick="clickDownHistory();" title="다음 문서" href="javascript:void(0);">아래로</a>
+		</div>
+	</div>
+</div>
+<div class="survey">
+	<a class="btnSuvey" href="/dsah004/select.do?no=78&amp;gubun=N&amp;list_no=13" title="FAQ 바로가기"><span>홈페이지<br>이용관련</span><span>FAQ</span></a>
+</div>
+<a class="btnGuide" onclick="openHelp(100); return false;" href="javascript:void(0);" title="이용가이드 바로가기">이용가이드</a>
+<a class="btnTop" href="javascript:void(0);" title="위로">위로</a>
+
+				</div>
+
+			</div>
+		</div>
+		<!-- BOTTOM LAYOUT START -->
+		<!-- <div id="layoutBottom"> -->
+
+
+<script type="text/javascript">
+	function altChange(){
+		var sIndex = document.getElementById("f_select").options.selectedIndex;
+		document.getElementById("go_confirm").alt = document.getElementById("f_select").options[sIndex].text + " 이동";
+		document.getElementById("go_confirm").title = document.getElementById("f_select").options[sIndex].text + " 이동";
+	}
+
+	function doPrsnInfoPolicy(){
+		var size = getOpenSize(730, 750);
+		var popWin = window.open('/jsp/popup/prsnInfoPolicy.jsp', 'PRSNINFOPOLICY', ''+size+', status=no, scrollbars=yes');
+	   	popWin.focus();
+	}
+
+	function openBanner(ban_type){
+		xajax.initParameter();
+		xajax.addParameter("ban_type", ban_type);
+		xajax.simpleSend("/banner/count.ax");
+	}
+</script>
+
+<a class="btnClose" onclick="fn_scrollTop();" href="javascript:void(0);" title="맨위로"><div class="mBtnTop">맨위로</div></a>
+<div id="footerBannerWrap">
+	<div id="footerBanner">
+		<div class="leftCont">
+			<ul>
+				<li><a href="https://www.fss.or.kr" target="_blank" title="새창열림"><img src="../images/footer_banner_01.png" alt="금융감독원 바로가기"></a></li>
+				<li><a href="http://www.fsc.go.kr/" target="_blank" title="새창열림"><img src="../images/footer_banner_02.png" alt="금융위원회 바로가기"></a></li>
+				<li><a href="http://www.ftc.go.kr/" target="_blank" title="새창열림"><img src="../images/footer_banner_03.png" alt="공정거래위원회 바로가기"></a></li>
+			</ul>
+		</div>
+		<div class="rightCont">
+			<ul>
+				<li><a href="https://www.fss.or.kr/fss/job/lrgInfoMain/intro.do?menuNo=200485" target="_blank" title="새창열림"><img src="../images/footer_banner_04.png" alt="금융감독법규 바로가기"></a></li>
+				<li><a href="https://www.fss.or.kr/fss/main/contents.do?menuNo=200289" target="_blank" title="새창열림"><img src="../images/footer_banner_05.png" alt="불법금융신고센터 바로가기"></a></li>
+				<li><a href="https://www.fss.or.kr/fss/main/contents.do?menuNo=200427" target="_blank" title="새창열림"><img src="../images/footer_banner_06.png" alt="금융감독원 회계포탈 바로가기"></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div id="footerWrap">
+	<div id="footer">
+		<div class="logo"><img src="../images/footer_logo.png" alt="풋터 로고"></div>
+		<div class="fnbWrap">
+			<div class="fnb">
+				<ul>
+					<li><a href="/jsp/privacy.jsp" target="_blank" title="개인정보처리방침 새창"><b>개인정보 처리방침</b></a></li>
+					<li><a href="/introduction/content5.do" title="정보이용시 유의사항">정보이용시 유의사항</a></li>
+					<li><a href="/introduction/content2.do" title="보고서정보">보고서정보</a></li>
+					<li><a href="/introduction/content6.do" title="RSS서비스">RSS서비스</a></li>
+				</ul>
+			</div>
+			<div class="copy">
+				<p>서울특별시 영등포구 여의대로 38 대표전화 : 02) 3145-5114</p>
+				<p>Copyright ㉿FINANCIAL SUPERVISORY SERVICE ALL Rights Reserved.</p>
+			</div>
+		</div>
+		<div class="inquiry">
+			<p>홈페이지 이용문의 : (국번없이)1332 (5번-&gt;1번-&gt;1번)</p>
+			<p>기업공시 제도문의 : (국번없이)1332 (5번-&gt;1번-&gt;2,3,4,5번)</p>
+		</div>
+		<div class="footeMark"><img src="../images/footer_mark.png" alt="ISO 20000 인증" title="ISO 20000 인증"></div>
+	</div>
+</div>
+
+
+<!-- layer popup wrap -->
+<div id="winCommMsg" style="display:none">
+	<div class="mask" style="display:block"></div>
+	<!-- layer popup wrap -->
+</div>
+
+		<!-- </div> -->
+		<!-- BOTTOM LAYOUT END -->
+		<script type="text/javascript">
+			$j(document).ready(function() {
+				if( navigator.userAgent.match(/Android|iPhone|iPad/) == null) {
+					$j("#divMobileLink").css("display", "none");
+				} else {
+					$j("#divMobileLink").css("display", "block");
+				}
+			});
+		</script>
+
+<div id="winCorpInfo" style="display:none"></div></body></html>
